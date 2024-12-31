@@ -6,23 +6,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
   sha256: 05826e6a0183dc0a11ec343bfdc0b06c01899aca44df422e8a72ccb0ad93b60a
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
   run:
     - deap >=1.3.3
     - mlflow >=1.17.0
     - numpy >=1.19.0
-    - python >=3.8
+    - python >={{ python_min }}
     - scikit-learn >=1.1.0
     - seaborn >=0.11.2
     - tensorflow >=2.0.0
@@ -36,6 +36,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/rodrigo-arenas/Sklearn-genetic-opt
